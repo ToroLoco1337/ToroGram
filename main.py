@@ -68,7 +68,7 @@ async def add(chat, link_add):
             count+=1
         except:
             pass
-    print(Fore.GREEN+f'Added {len(members)} accounts.')
+    print(Fore.GREEN+f'Added {count} members.')
  
 async def main():
     print(Fore.GREEN + LOGO)
