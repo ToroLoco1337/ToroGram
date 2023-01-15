@@ -45,7 +45,7 @@ async def message(chat):
         try:
             await bot.send_message(member, message)
             print(Fore.GREEN + f'Message sent to {member.username}')
-            await asyncio.sleep(60)
+            await asyncio.sleep(45)
         except:
             pass
     print(Fore.GREEN+f'Message sent to {len(members)} accounts.')
@@ -59,11 +59,13 @@ async def add(chat, link_add):
                 members.remove(member)
         except:
             pass
+    count=0
     for member in members:
         try:
             await bot(InviteToChannelRequest(my_chat,[member]))
-            print(Fore.GREEN + f'Added {member.username} to your group.')
+            print(Fore.GREEN + f'Added {member.username} to your group. => {count}')
             await asyncio.sleep(45)
+            count+=1
         except:
             pass
     print(Fore.GREEN+f'Added {len(members)} accounts.')
