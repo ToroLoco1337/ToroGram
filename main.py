@@ -31,39 +31,42 @@ time_range = timedelta(days=7)
  
 bot=TelegramClient("anon", API_ID, API_HASH)
  
+async def member_verification(members, chat):
+    for member in members:
+        permissions=await bot.get_permissions(chat, member)
+        print(f'{member.first_name} {permissions.is_admin}')
+        try:
+            if member.status.was_online<now-time_range or member.premium or permissions.is_admin:
+                members.remove(member)
+        except:
+            pass
+    return members
+
 async def message(chat):
     print(Fore.GREEN + "Message you want to send: ")
     message=input("")
     members=await bot.get_participants(chat)
-    for member in members:
-        try:
-            if member.status.was_online<now-time_range:
-                members.remove(member)
-        except:
-            pass
-    for member in members:
+    members_clean=await member_verification(members, chat)
+    count=0
+    for member in members_clean:
         try:
             await bot.send_message(member, message)
-            print(Fore.GREEN + f'Message sent to {member.username}')
+            print(Fore.GREEN + f'Message sent to {member.first_name}. => {count}')
+            count+=1
             await asyncio.sleep(45)
         except:
             pass
-    print(Fore.GREEN+f'Message sent to {len(members)} accounts.')
+    print(Fore.GREEN+f'Message sent to {count} accounts.')
  
 async def add(chat, link_add):
     my_chat=await bot.get_entity(link_add)
     members=await bot.get_participants(chat)
-    for member in members:
-        try:
-            if member.status.was_online<now-time_range:
-                members.remove(member)
-        except:
-            pass
+    members_clean=await member_verification(members, chat)
     count=0
-    for member in members:
+    for member in members_clean:
         try:
             await bot(InviteToChannelRequest(my_chat,[member]))
-            print(Fore.GREEN + f'Added {member.username} to your group. => {count}')
+            print(Fore.GREEN + f'Added {member.first_name} to your group. => {count}')
             await asyncio.sleep(45)
             count+=1
         except:
@@ -100,6 +103,7 @@ async def main():
         print(Fore.GREEN + "Group's link: ")
         link=input("")
         chat=await bot.get_entity(link)
+        print(Fore.GREEN + "[0] Send messages\n[1] Add members to your group")
         choice4=input("")
         if choice4=="0":
             await message(chat)
