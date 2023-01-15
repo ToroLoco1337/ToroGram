@@ -72,7 +72,7 @@ async def add(chat, link_add):
         except:
             pass
     print(Fore.GREEN+f'Added {count} members.')
- 
+
 async def main():
     print(Fore.GREEN + LOGO)
     print(Fore.GREEN + "[0] => Choose between your groups \n[1] => Input a group's link ")
