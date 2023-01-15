@@ -24,17 +24,16 @@ LOGO='''
 '''
  
 utc=pytz.timezone('utc')
- 
+
 now = datetime.now(utc)
- 
+
 time_range = timedelta(days=7)
  
 bot=TelegramClient("anon", API_ID, API_HASH)
- 
+
 async def member_verification(members, chat):
     for member in members:
         permissions=await bot.get_permissions(chat, member)
-        print(f'{member.first_name} {permissions.is_admin}')
         try:
             if member.status.was_online<now-time_range or member.premium or permissions.is_admin:
                 members.remove(member)
@@ -57,7 +56,7 @@ async def message(chat):
         except:
             pass
     print(Fore.GREEN+f'Message sent to {count} accounts.')
- 
+
 async def add(chat, link_add):
     my_chat=await bot.get_entity(link_add)
     members=await bot.get_participants(chat)
