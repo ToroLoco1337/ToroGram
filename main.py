@@ -9,13 +9,12 @@ import colorama
 from colorama import Fore, Back, Style
 from telethon.errors.rpcerrorlist import PeerFloodError, FloodWaitError
 
-colorama.init(autoreset=True)
+colorama.init(autoreset=False)
 load_dotenv()
- 
-# API_ID=os.environ.get("API_ID")
-# API_HASH=os.environ.get("API_HASH")
-API_ID="27230511"
-API_HASH="a3bc700f735f56bbbc4d2f861dd192f5"
+
+API_ID=os.environ.get("API_ID")
+API_HASH=os.environ.get("API_HASH")
+
 LOGO='''
  _____               _____                     
 |_   _|             |  __ \                    
@@ -25,7 +24,7 @@ LOGO='''
   \_/\___/|_|  \___/ \____/_|  \__,_|_| |_| |_|
  
 '''
- 
+
 utc=pytz.timezone('utc')
 
 now = datetime.now(utc)
