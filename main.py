@@ -70,14 +70,13 @@ async def add(chat, link_add):
             print(Fore.GREEN + f'Added {member.first_name} to your group. => {count}')
             await asyncio.sleep(60)
             count+=1
+        except PeerFloodError:
+            print("PeerFloodError. Try again later.")
         except:
-            # print("PeerFloodError: Try again after a few hours!")
-            raise
             pass
     print(Fore.GREEN+f'Added {count} members.')
 
 async def main():
-    print(await bot.get_me())
     print(Fore.GREEN + LOGO)
     print(Fore.GREEN + "[0] => Choose between your groups \n[1] => Input a group's link ")
     choice=input("")
