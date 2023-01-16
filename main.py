@@ -7,12 +7,15 @@ import pytz
 import asyncio
 import colorama
 from colorama import Fore, Back, Style
- 
+from telethon.errors.rpcerrorlist import PeerFloodError, FloodWaitError
+
 colorama.init(autoreset=True)
 load_dotenv()
  
-API_ID=os.environ.get("API_ID")
-API_HASH=os.environ.get("API_HASH")
+# API_ID=os.environ.get("API_ID")
+# API_HASH=os.environ.get("API_HASH")
+API_ID="27230511"
+API_HASH="a3bc700f735f56bbbc4d2f861dd192f5"
 LOGO='''
  _____               _____                     
 |_   _|             |  __ \                    
@@ -69,11 +72,13 @@ async def add(chat, link_add):
             await asyncio.sleep(60)
             count+=1
         except:
+            # print("PeerFloodError: Try again after a few hours!")
             raise
             pass
     print(Fore.GREEN+f'Added {count} members.')
 
 async def main():
+    print(await bot.get_me())
     print(Fore.GREEN + LOGO)
     print(Fore.GREEN + "[0] => Choose between your groups \n[1] => Input a group's link ")
     choice=input("")
