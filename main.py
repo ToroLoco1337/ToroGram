@@ -12,8 +12,8 @@ from telethon.errors.rpcerrorlist import PeerFloodError, FloodWaitError
 colorama.init(autoreset=False)
 load_dotenv()
 
-API_ID=os.environ.get("API_ID")
-API_HASH=os.environ.get("API_HASH")
+API_ID=os.getenv("API_ID")
+API_HASH=os.getenv("API_HASH")
 
 LOGO='''
  _____               _____                     
@@ -30,7 +30,7 @@ utc=pytz.timezone('utc')
 now = datetime.now(utc)
 
 time_range = timedelta(days=7)
- 
+
 bot=TelegramClient("anon", API_ID, API_HASH)
 
 async def member_verification(members, chat):
